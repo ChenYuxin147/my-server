@@ -1,2 +1,2 @@
-# my-server
-为客户端，前端网页提供高性能后台数据服务
+# spring-boot-demo
+spring-boot 微服务化组件demo
