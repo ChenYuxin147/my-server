@@ -23,7 +23,7 @@ public class Application {
     private final static Logger logger = Logger.getLogger(Application.class);
 
     @Bean
-    @ConfigurationProperties(prefix="spring.datasource")
+    @ConfigurationProperties(prefix="spring.datasource.tomcat")
     public DataSource dataSource() {
         return new org.apache.tomcat.jdbc.pool.DataSource();
     }
