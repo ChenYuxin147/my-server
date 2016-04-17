@@ -1,10 +1,16 @@
 package com.demo.model;
 
+import javax.persistence.*;
+
 /**
  * Created by Eason on 2016/4/17.
  */
+@Entity
+@Table(name = "user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer age;
     private String email;

@@ -1,8 +1,10 @@
 package com.demo.service.impl;
 
+import com.demo.dao.UserDao;
 import com.demo.mapper.UserMapper;
 import com.demo.model.User;
 import com.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,16 +15,23 @@ import javax.annotation.Resource;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Resource(name="userMapper")
+    @Autowired
     private UserMapper mapper;
+
+    @Autowired
+    private UserDao dao;
 
     @Override
     public User SelectUser(String name) {
-        return mapper.SelectUser(name);
+        return dao.findByName(name);
     }
 
     @Override
     public void SaveOrUpdateUser(User user) {
-       mapper.InsertUser(user);
+        if (user.getId() == null) {
+            mapper.InsertUser(user);
+        }else{
+            dao.save(user);
+        }
     }
 }
