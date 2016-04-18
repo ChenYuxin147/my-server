@@ -11,6 +11,6 @@ import javax.transaction.Transactional;
 @Transactional
 public interface UserDao extends CrudRepository<User, Long> {
 
-    public User findByName(String name);
+    User findByName(String name);
 
 }

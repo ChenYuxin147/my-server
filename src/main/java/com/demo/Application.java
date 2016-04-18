@@ -19,28 +19,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @EnableAutoConfiguration
 @SpringBootApplication
 public class Application {
-
     private final static Logger logger = Logger.getLogger(Application.class);
-
-    @Bean
-    @ConfigurationProperties(prefix="spring.datasource.tomcat")
-    public DataSource dataSource() {
-        return new org.apache.tomcat.jdbc.pool.DataSource();
-    }
-
-    @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
-        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(dataSource());
-        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mapper/*.xml"));
-        return sqlSessionFactoryBean.getObject();
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dataSource());
-    }
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);

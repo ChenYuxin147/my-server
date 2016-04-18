@@ -1,10 +1,8 @@
 package com.demo.controller;
 
-import com.demo.dao.UserDao;
 import com.demo.model.User;
 import com.demo.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
-import org.springframework.beans.CachedIntrospectionResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
