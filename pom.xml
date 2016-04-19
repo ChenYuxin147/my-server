@@ -103,18 +103,10 @@
             <artifactId>spring-jdbc</artifactId>
         </dependency>
 
-
         <!--monitor-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <!--general Mapper-->
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper</artifactId>
-            <version>3.3.7</version>
         </dependency>
 
     </dependencies>
