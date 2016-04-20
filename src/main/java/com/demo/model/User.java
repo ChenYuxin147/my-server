@@ -1,13 +1,17 @@
 package com.demo.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Eason on 2016/4/17.
  */
 @Entity
 @Table(name = "user")
-public class User {
+/**
+ * use spring session redis ,so implements Serializable
+ */
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
