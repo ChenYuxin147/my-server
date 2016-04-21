@@ -5,6 +5,7 @@ import com.demo.mapper.UserMapper;
 import com.demo.model.User;
 import com.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,11 +16,14 @@ import javax.annotation.Resource;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Resource(name = "userMapper")
+    @Autowired
     private UserMapper mapper;
 
-    @Resource(name = "userDao")
+    @Autowired
     private UserDao dao;
+
+    @Autowired
+    private StringRedisTemplate template;
 
     @Override
     public User SelectUser(String name) {
@@ -30,7 +34,7 @@ public class UserServiceImpl implements UserService {
     public void SaveOrUpdateUser(User user) {
         if (user.getId() == null) {
             mapper.InsertUser(user);
-        }else{
+        } else {
             dao.save(user);
         }
     }

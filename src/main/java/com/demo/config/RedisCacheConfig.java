@@ -9,15 +9,13 @@ import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 import java.lang.reflect.Method;
 
 /**
- * Created by Chenyuxin on 2016/4/20.
+ * Created by Eason on 2016/4/20.
  */
 @Configuration
 @EnableCaching
@@ -39,22 +37,15 @@ public class RedisCacheConfig {
     }
 
     @Bean
-    public CacheManager cacheManager(
-            @SuppressWarnings("rawtypes") RedisTemplate redisTemplate) {
-        return new RedisCacheManager(redisTemplate);
-    }
-
-    @Bean
-    public RedisTemplate<String, String> redisTemplate(
-            RedisConnectionFactory factory) {
-        StringRedisTemplate template = new StringRedisTemplate(factory);
+    public CacheManager cacheManager(RedisTemplate redisTemplate) {
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         jackson2JsonRedisSerializer.setObjectMapper(om);
-        template.setValueSerializer(jackson2JsonRedisSerializer);
-        template.afterPropertiesSet();
-        return template;
+        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
+        cacheManager.setDefaultExpiration(300);
+        return cacheManager;
     }
 }

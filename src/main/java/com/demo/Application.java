@@ -17,5 +17,4 @@ public class Application {
         SpringApplication.run(Application.class, args);
         logger.info("spring-boot demo started......");
     }
-
 }
