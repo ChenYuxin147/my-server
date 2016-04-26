@@ -13,7 +13,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource.hikari")
-public class DataSourceConfig extends HikariConfig {
+public class DatasourceConfig extends HikariConfig {
 
     @Override
     public DataSource getDataSource() {
