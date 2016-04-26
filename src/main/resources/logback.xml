@@ -52,7 +52,5 @@
     </root>
 
     <!-- For loggers in the these namespaces, log at all levels. -->
-    <logger name="pedestal" level="ALL" />
-    <logger name="hammock-cafe" level="ALL" />
-    <logger name="user" level="ALL" />
+    <logger name="com.demo" level="ALL" />
 </configuration>
