@@ -2,10 +2,8 @@ package com.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.demo.model.User;
-import com.demo.service.UserService;
 import com.demo.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,15 +28,24 @@ public class UserController {
         return service.selectUser(name);
     }
 
-    @RequestMapping(value = "/add-user/{name}/{age}/{email}/{gender}", method = RequestMethod.POST)
+    @RequestMapping(value = "/add-user", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject addUser(@PathVariable("name") String name, @PathVariable("age") Integer age, @PathVariable("email") String email,
-                              @PathVariable("gender") String gender) {
-        User user = new User();
-        user.setAge(age);
-        user.setEmail(email);
-        user.setGender(gender);
-        user.setName(name);
+    public JSONObject addUser(User user) {
+        boolean flag = false;
+        try {
+            service.saveOrUpdateUser(user);
+            flag = true;
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        JSONObject obj = new JSONObject();
+        obj.put("result", flag);
+        return obj;
+    }
+
+    @RequestMapping(value = "/update-user", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject updateUser(User user) {
         boolean flag = false;
         try {
             service.saveOrUpdateUser(user);

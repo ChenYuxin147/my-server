@@ -6,11 +6,9 @@ import java.io.Serializable;
 /**
  * Created by Eason on 2016/4/17.
  */
+//use spring session redis, if you want to save this entity in session ,must make sure to implements Serializable
 @Entity
 @Table(name = "user")
-/**
- * use spring session redis ,so implements Serializable
- */
 public class User implements Serializable {
 
     @Id
