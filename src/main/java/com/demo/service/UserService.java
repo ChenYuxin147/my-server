@@ -7,8 +7,10 @@ import com.demo.model.User;
  */
 public interface UserService {
 
-    User SelectUser(String name);
+    User selectUser(String name);
 
-    void SaveOrUpdateUser(User user);
+    User saveOrUpdateUser(User user);
+
+    void deleteUser(Long id);
 
 }

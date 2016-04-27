@@ -6,8 +6,4 @@
     <select id="SelectUser" resultType="com.demo.model.User">
         SELECT * FROM user WHERE name = #{name}
     </select>
-    <insert id="InsertUser" keyProperty="id" parameterType="com.demo.model.User">
-        INSERT into user (age,email,gender,name) VALUES (#{age},#{email},#{gender},#{name})
-    </insert>
-
 </mapper>

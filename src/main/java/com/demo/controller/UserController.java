@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.demo.model.User;
 import com.demo.service.UserService;
 import com.demo.service.impl.UserServiceImpl;
@@ -22,31 +23,47 @@ public class UserController {
     @Resource(name = "userServiceImpl")
     private UserServiceImpl service;
 
+    @Cacheable(value = "searchUser", keyGenerator = "defaultKeyGen")
     @RequestMapping(value = "/select-user/{name}", method = RequestMethod.GET)
     @ResponseBody
-    public User SelectUser(@PathVariable("name") String name) {
-        return service.SelectUser(name);
+    public User selectUser(@PathVariable("name") String name) {
+        return service.selectUser(name);
     }
 
-    @Cacheable(value="searchUser", keyGenerator = "defaultKeyGen")
-    @RequestMapping(value = "/save-user/{name}/{age}/{email}/{gender}/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/add-user/{name}/{age}/{email}/{gender}", method = RequestMethod.POST)
     @ResponseBody
-    public String SelectUser(@PathVariable("name") String name, @PathVariable("age") Integer age, @PathVariable("email") String email,
-                             @PathVariable("gender") String gender, @PathVariable("id") Integer id) {
+    public JSONObject addUser(@PathVariable("name") String name, @PathVariable("age") Integer age, @PathVariable("email") String email,
+                              @PathVariable("gender") String gender) {
         User user = new User();
         user.setAge(age);
         user.setEmail(email);
         user.setGender(gender);
-        user.setId(id == 0 ? null : id);
         user.setName(name);
         boolean flag = false;
         try {
-            service.SaveOrUpdateUser(user);
+            service.saveOrUpdateUser(user);
             flag = true;
         } catch (Exception e) {
             logger.error(e);
         }
-        return "{result:" + flag + "}";
+        JSONObject obj = new JSONObject();
+        obj.put("result", flag);
+        return obj;
+    }
+
+    @RequestMapping(value = "/delete-user/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public JSONObject deleteUser(@PathVariable("id") Long id) {
+        boolean flag = false;
+        try {
+            service.deleteUser(id);
+            flag = true;
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        JSONObject obj = new JSONObject();
+        obj.put("result", flag);
+        return obj;
     }
 
 }
