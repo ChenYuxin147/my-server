@@ -1,15 +1,15 @@
 package com.demo.mapper;
 
 import com.demo.Application;
-import com.demo.dao.UserDao;
 import com.demo.model.User;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import javax.annotation.Resource;
 
 /**
  * Created by Chenyuxin on 2016/5/3.
@@ -20,7 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class UserMapperTest {
     private final static Logger log = Logger.getLogger(UserMapperTest.class);
 
-    @Autowired
+    @Resource(name = "userMapper")
     private UserMapper mapper;
 
     @Test
